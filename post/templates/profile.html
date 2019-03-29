@@ -1,0 +1,38 @@
+{%extends 'base.html'%}
+
+{% block content %}
+{{block.super}}
+
+<body>
+    <div class = "container">
+    
+     <h3 class="row" style="color:rgb(46, 54, 54);font-family: monospace;"><strong>{{profiles.first_name}}  {{profiles.last_name}}</strong></h3>
+     <div>
+     
+        <img src="{{profiles.profile_pic.url}}" alt="Image">
+    </div>
+  
+    <p class="well" class="row" style="color:rgb(41, 53, 53);font-family: Courier New; font-size: 20px;">
+        {% autoescape on %}
+        {{profiles.bio| safe}}
+       {% endautoescape %}
+    </p>
+ 
+   
+<!-- 
+    <div class="well">
+            <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo"><strong>{{profiles.user}}</strong> ALBUM</button>
+            <div id="demo" class="collapse">
+             
+            
+   
+            
+               
+            </div> 
+         </div>
+     -->
+    </div>  
+</body>
+
+</html>
+{% endblock %}

@@ -1,0 +1,41 @@
+{%extends 'base.html'%}
+
+ {% block content %}
+
+ <body>
+
+ <div class="container">
+
+        <div class="row" style="color:rgb(108, 122, 122);font-family: monospace;">
+                <h1 class="text-center" class="well">{{project.name}}</h1>
+                <br>
+                <h3 class="text-center">Added <strong>{{project.user}}</strong></h3>
+            </div>
+
+    <div class="row">
+        <img src="{{project.image.url}}"  class="img-responsive" alt="">
+    </div>
+    
+    <div class="row" style="color:rgb(99, 110, 110);font-family: monospace;">
+        <h4 ><strong>Posted on: {{project.posted_on}}</strong></h4>
+    </div>
+
+    <a href="{{project.project_url}}" target="_blank">INSTA G</a>
+    <div class="row" style="color:rgb(99, 110, 110);font-family: monospace;">
+        <h4 ><strong>{% autoescape on %}
+            {{project.description| safe}}
+           {% endautoescape %}
+        </strong></h4>
+    </div>
+       
+    <div class="row" style="color:rgb(99, 110, 110);font-family: monospace;">
+        <h4 ><strong>{% autoescape on %}
+            {{project.technologies_used| safe}}
+           {% endautoescape %}
+        </strong></h4>
+    </div>
+    
+</div>
+       
+{% endblock %}
+</body>
