@@ -5,6 +5,12 @@ from .models import Project,Profile,Comments,Votes
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .serializer import ProjectSerializer,ProfileSerializer
+from rest_framework import status
+
+
 # Create your views here.
 
 
@@ -84,14 +90,35 @@ def votes(request,id):
     votes = Votes.objects.filter(project=post)
   
     if request.method == 'POST':
-        form = VotesForm(request.POST,request.FILES)
-        if form.is_valid():
-            votes = form.cleaned_data['votes']
-            new_votes = Votes(vote = vote,user =current_user,project=post)
-            new_votes.save()
-
-            return redirect('project')        
-                
+            vote = VotesForm(request.POST)
+            if vote.is_valid():
+                design = vote.cleaned_data['design']
+                usability = vote.cleaned_data['usability']
+                content = vote.cleaned_data['content']
+                rating = Votes(design=design,usability=usability,content=content,user=request.user,project=post)
+                rating.save()
+                return redirect('project')      
     else:
         form = VotesForm()
         return render(request, 'new-vote.html', {"form":form,'post':post,'user':current_user,'votes':votes})
+
+def search_results(request):
+
+    if 'project' in request.GET and request.GET["project"]:
+        search_term = request.GET.get("project")
+        searched = Project.search_project(search_term)
+        message = f"{search_term}"
+
+        return render(request, 'search.html',{"message":message,"searched": searched})
+
+    else:
+        message = "You haven't searched for any term"
+        return render(request, 'search.html',{"message":message})        
+
+class ProfileList(APIView):
+    def get(self, request, format=None):
+        serializers = ProfileSerializer(data=request.data)
+        if serializers.is_valid():
+            serializers.save()
+            return Response(serializers.data, status=status.HTTP_201_CREATED)
+        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
