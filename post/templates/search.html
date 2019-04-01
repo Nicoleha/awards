@@ -1,0 +1,26 @@
+{%extends 'base.html'%}
+{% load bootstrap3 %} {% load staticfiles %}
+{% block content %}
+<div class="container">
+
+  <div class="mark" style="color:rgb(53, 127, 212);font-family: monospace;">
+    {% if searched%}
+      <h2>Found {{ searched|length }} project of searched term {{message}}</h2>
+    {% else %}
+      <h2> Found 0 project for the search term {{message}}</h2>
+    {% endif %}
+
+  </div>
+
+  <div class="row">
+
+  {% if searched %}
+    {% for imag in searched %}
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+        <img src="{{imag.image.url}}" alt="Image" width='200' length='200'>
+    </div>
+    {% endfor %}
+  {% endif %}
+  </div>
+</div>
+{% endblock %}
