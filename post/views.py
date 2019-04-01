@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http  import HttpResponse
-from .forms import ProfileForm,ProjectForm,CommentsForm
+from .forms import ProfileForm,ProjectForm,CommentsForm,VotesForm
 from .models import Project,Profile,Comments,Votes
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -18,7 +18,9 @@ def index(request):
 @login_required(login_url='/accounts/login/')
 def images(request,project_id):
     project = Project.objects.get(id = project_id)
-    return render(request,"Pro.html", {"project":project})
+    comments = Comments.objects.filter(project = project.id).all() 
+    votes = Votes.objects.filter(project = project.id).all() 
+    return render(request,"Pro.html", {"project":project,"comments":comments,"votes":votes})
 
 @login_required(login_url='/accounts/login/')
 def myProfile(request,id):
@@ -37,7 +39,7 @@ def profile(request):
             profile.user = current_user
             profile.save()
 
-            return redirect('welcome')
+            return redirect('index')
 
     else:
         form = ProfileForm()
@@ -52,7 +54,7 @@ def project(request):
             project.user = current_user
             project.save()
 
-            return redirect('home')
+            return redirect('index')
 
     else:
         form = ProjectForm()
@@ -69,8 +71,27 @@ def comments(request,id):
             comment = form.cleaned_data['comment']
             new_comment = Comments(comment = comment,user =current_user,project=post)
             new_comment.save()
-                    
+
+            return redirect('project')        
                 
     else:
         form = CommentsForm()
         return render(request, 'new-comment.html', {"form":form,'post':post,'user':current_user,'comments':comments})
+
+def votes(request,id):
+    current_user = request.user
+    post = Project.objects.get(id=id)
+    votes = Votes.objects.filter(project=post)
+  
+    if request.method == 'POST':
+        form = VotesForm(request.POST,request.FILES)
+        if form.is_valid():
+            votes = form.cleaned_data['votes']
+            new_votes = Votes(vote = vote,user =current_user,project=post)
+            new_votes.save()
+
+            return redirect('project')        
+                
+    else:
+        form = VotesForm()
+        return render(request, 'new-vote.html', {"form":form,'post':post,'user':current_user,'votes':votes})
