@@ -9,15 +9,15 @@
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="{% url 'welcome' %}">Moringa</a>
+        <a class="navbar-brand" href="{% url 'welcome' %}" style="color:white;"><strong>HOME</strong></a>
     </div>
     <!--The search form above-->
     <div class="col-sm-6 col-md-6">
         {% if user.is_authenticated %}
         <ul>
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown" role="button" aria-expanded="false">Account
-                      <span class="caret"></span>
+            <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown" role="button" aria-expanded="false" style="color:rgb(12, 11, 11);text-decoration:none;"><strong>Account
+            </strong><span class="caret"></span>
                   </a>
             <ul class="dropdown-menu" role="menu">
               <li>
@@ -31,22 +31,34 @@
                 </li>
               <li>
               <li>
-                <a href="/accounts/password/change">Change Password</a>
+                <a href="/accounts/password/change"><strong>Change Password</strong></a>
               </li>
               <li>
-                <a href="/logout">Logout</a>
+                <a href="/logout"><strong>Logout</strong></a>
               </li>
             </ul>
           </li>
         </ul>
+      
+        <!-- search form end -->
+
+        <div class="nav navbar-nav navbar-right">
+
+            <button class="well"><a href="{%url 'project'%}"   style="text-align: center;padding-left:50px;font-family: monospace;color:black;"><strong>POST PROJECT</strong></a></button>
+     
+           </div>
+
+             <!-- Adding a search form  -->
+      
+      </div>
         {% else %}
         <li>
           <a class='btn btn-default' href="/accounts/login">Login</a>
         </li>
 
         {% endif %}
-      </div>
-  </div>
+      
+  </div>      
 </nav>
 </body>
 </html>
