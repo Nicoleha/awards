@@ -5,58 +5,66 @@
  <body>
 
  <div class="container">
-
-        <div class="row" style="color:rgb(108, 122, 122);font-family: monospace;">
-                <h1 class="text-center" class="well">{{project.name}}</h1>
-                <br>
-                <h3 class="text-center">Added <strong>{{project.user}}</strong></h3>
-            </div>
-
-    <div class="row">
-        <img src="{{project.image.url}}"  class="img-responsive" alt="">
-    </div>
+     <div class="row">
+     <div class="col-md-5">
+            <div class="row" style="color:rgb(108, 122, 122);font-family: monospace;">
+                    <h1 class="text-center" class="well">{{project.name}}</h1>
+                    <br>
+                    <h3 class="text-center">Added <strong>{{project.user}}</strong></h3>
+                </div>
     
-    <div class="row" style="color:rgb(99, 110, 110);font-family: monospace;">
-        <h4 ><strong>Posted on: {{project.posted_on}}</strong></h4>
-    </div>
-
-    <a href="{{project.project_url}}" target="_blank">INSTA G</a>
-    <div class="row" style="color:rgb(99, 110, 110);font-family: monospace;">
-        <h4 ><strong>{% autoescape on %}
-            {{project.description| safe}}
-           {% endautoescape %}
-        </strong></h4>
-    </div>
-       
-    <div class="row" style="color:rgb(99, 110, 110);font-family: monospace;">
-        <h4 ><strong>{% autoescape on %}
-            {{project.technologies_used| safe}}
-           {% endautoescape %}
-        </strong></h4>
-    </div>
-
-    <div class="row">
-            <div class="col-md-6"> {% for hi in comments %}
-
-                    <p style="color: black;">><strong>{{hi.user}} : {{hi.comment}}</strong></p>
-                   
-                    {% endfor %}
-                    <br>
-                    <br>
-                
-            </div>
-            <div class="col-md-6">
-            
-                {% for hi in votes %}
-
-                <h1>{{hi.usability}}</h1>
-
-                {% endfor %}
+        <div class="row">
+            <img src="{{project.image.url}}"  class="img-responsive" alt="">
+        </div>
         
-            </div>
+        <div class="row" style="color:rgb(99, 110, 110);font-family: monospace;">
+            <h4 ><strong>Posted on: {{project.posted_on}}</strong></h4>
         </div>
     
-</div>
-       
-{% endblock %}
+     </div>
+     <div class="col-md-7">
+            <a href="{{project.project_url}}" target="_blank">INSTA G</a>
+            <div class="row" style="color:rgb(99, 110, 110);font-family: monospace;">
+                <h4 ><strong>{% autoescape on %}
+                    {{project.description| safe}}
+                   {% endautoescape %}
+                </strong></h4>
+            </div>
+               
+            <div class="row" style="color:rgb(99, 110, 110);font-family: monospace;">
+                <h4 ><strong>{% autoescape on %}
+                    {{project.technologies_used| safe}}
+                   {% endautoescape %}
+                </strong></h4>
+            </div>
+        
+            <div class="row">
+                    <div class="col-md-6"> {% for hi in comments %}
+        
+                            <p style="color: black;">><strong>{{hi.user}} : {{hi.comment}}</strong></p>
+                           
+                            {% endfor %}
+                            <br>
+                            <br>
+                        
+                    </div>
+                    <div class="col-md-6">
+                    
+                        {% for hi in votes %}
+        
+                        <p style="background-color: black;">{{hi.content}}</p>
+                        <p style="background-color: black;">{{hi.usability}}</p>
+                        <p style="background-color: black;">{{hi.design}}</p>
+        
+                        {% endfor %}
+                
+                    </div>
+                </div>
+            
+        </div>
+               
+        {% endblock %}
+     </div>
+    </div>       
+    
 </body>
