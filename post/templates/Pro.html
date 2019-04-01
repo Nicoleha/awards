@@ -34,6 +34,27 @@
            {% endautoescape %}
         </strong></h4>
     </div>
+
+    <div class="row">
+            <div class="col-md-6"> {% for hi in comments %}
+
+                    <p style="color: black;">><strong>{{hi.user}} : {{hi.comment}}</strong></p>
+                   
+                    {% endfor %}
+                    <br>
+                    <br>
+                
+            </div>
+            <div class="col-md-6">
+            
+                {% for hi in votes %}
+
+                <h1>{{hi.usability}}</h1>
+
+                {% endfor %}
+        
+            </div>
+        </div>
     
 </div>
        
