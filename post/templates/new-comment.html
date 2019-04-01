@@ -14,17 +14,14 @@
   {{form.media}}
 
 {% block styles %} {% bootstrap_css %}
-  <link rel="stylesheet" href="{% static 'css/baseinsto.css' %}"> {% endblock %}
+  <link rel="stylesheet" href="{% static 'styles.css' %}"> {% endblock %}
 
 </head>
 
 <body>
-       
-            
-            <boby>
                     
         
-                    <div class="container" id="index"   >
+<div class="container" id="index"   >
                 
                         <div class="row" style="color:rgb(108, 122, 122);font-family: monospace;">
                             <h1 class="text-center" class="well">{{post.name}}</h1>
@@ -33,14 +30,14 @@
                         </div>
             
                 <div class="row">
-                    <img src="{{project.image.url}}"  class="img-responsive" alt="">
+                    <img src="{{post.image.url}}"  class="img-responsive" alt="">
                 </div>
                 
                 <div class="row" style="color:rgb(99, 110, 110);font-family: monospace;">
                     <h4 ><strong>Posted on: {{post.posted_on}}</strong></h4>
                 </div>
             
-                <a href="{{project.project_url}}" target="_blank">INSTA G</a>
+                <a href="{{post.project_url}}" target="_blank">INSTA G</a>
                 <div class="row" style="color:rgb(99, 110, 110);font-family: monospace;">
                     <h4 ><strong>{% autoescape on %}
                         {{project.description| safe}}
@@ -58,7 +55,7 @@
                 <div class="container" id="come">
                     <h2 style="text-align:left">comments:</h2>
                 {%for mais in comments%}
-                <p style= "margin-left: 20% ">{{mais.comment}} </p>
+                <p style= "margin-left: 20% "><strong>{{mais.comment}} </strong></p>
                               
                               
                               {%endfor%}
@@ -66,6 +63,11 @@
 </div>      
         
     <div class="container">   
+
+<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo">COMMENTS</button>
+<div id="demo" class="collapse">
+              
+            
 
   <form  action="{%url 'comments' post.id %}" method="post" enctype="multipart/form-data">
     {%csrf_token%}
@@ -77,6 +79,9 @@
    {% block scripts %}
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   {% bootstrap_javascript %} {% endblock %}
+
+</div>
+
 
 </div> 
 </body>
