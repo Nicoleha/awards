@@ -49,6 +49,11 @@ class Project(models.Model):
         projects = cls.objects.all()
         return projects
 
+    @classmethod
+    def search_project(cls,search_term):
+        project = cls.objects.filter(project_name__icontains = search_term)
+        return project
+
 class Comments(models.Model):
     comment = models.CharField(max_length = 500)
     posted_on = models.DateTimeField(auto_now=True)
