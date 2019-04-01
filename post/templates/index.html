@@ -4,10 +4,26 @@
 {{block.super}}
 
 <body>
-    <div class = "container">
+   <div class = "container">
+      <div style="width:100%;padding: 20px;font-family: monospace;">
+
+            <form class="navbar-form" role="search" action="{% url 'search_results' %}">
+    
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search project" name="project">
+                <div class="input-group-btn">
+                  <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                </div>
+              </div>
+    
+            </form>
+          </div>
+          <br>
+          <br>
+    
       <div class="well">
          <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo">VIEW ALL PROFILES</button>
-         <div id="demo" class="collapse">
+      <div id="demo" class="collapse">
           
          
 
@@ -27,10 +43,11 @@
 
             {% for profs in project %}
             
-            <a href="/images/{{profs.id}}"><img src="{{profs.image.url}}" alt="Image"></a>
+            <a href="/images/{{profs.id}}"><img src="{{profs.image.url}}" alt="Image" style="border-radius:10px;"></a>
                
-            
-         
+            <div class="row"></div>
+            <div class="col-md-6"><button><a href="/comments/{{profs.id}}">REVIEW</a></button></div>
+            <div class="col-md-6"><button><a href="/votes/{{profs.id}}">RATE</a></button></div>
             {% endfor %}
 
 
