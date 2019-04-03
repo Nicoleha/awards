@@ -11,14 +11,14 @@ This is a simple web clone of the instagram website. A user can create an accoun
 ## Specifications
 
 * Sign in to the application to start using.
-* Upload my pictures to the application.
-* See my profile with all my pictures.
-* Follow other users and see their pictures on my timeline.
+* Upload my project to the application.
+* Rate/View other people's project.
+* View api information of the user.
 * Like a picture and leave a comment on it.
 
-1. Users can post pics, comment, like and follow their friends,
+1. Users can post projects, comment, and rate other projects,
 
-2. User can search other users and be able to see their stories and comment or like the pictures.
+2. User can search other users project.
 
 
 ## Set Up and Installations
@@ -31,7 +31,8 @@ This is a simple web clone of the instagram website. A user can create an accoun
 * bootsrap
 
 ## Clone the Repo
-* Run the following command on the terminal: git clone https://github.com/Nicoleha/gallery.git 
+
+* Run the following command on the terminal: git clone https://github.com/Nicoleha/awards.git 
 * type cd instaG on terminal
 
 

@@ -36,7 +36,8 @@ def images(request,project_id):
     for n in votes:
         design+=round(n.design/num)
         usability+=round(n.usability/num)
-    return render(request,"Pro.html", {"project":project,"comments":comments,"votes":votes,"usability":usability,"design":design})
+        content+=round(n.content/num)
+    return render(request,"Pro.html", {"project":project,"comments":comments,"votes":votes,"usability":usability,"design":design,"content":content})
 
 @login_required(login_url='/accounts/login/')
 def myProfile(request,id):

@@ -5,30 +5,33 @@
  <body>
 
  <div class="container">
+        <center><a href="{{project.project_url}}" target="_blank"><h1>{{project.project_name}}</h1></a></center>
    
     <img src="{{project.image.url}}"  class="img-responsive" alt="">
-     <div class="col-md-5">
-            <div class="row" style="color:rgb(108, 122, 122);font-family: monospace;">
-                    <h1 class="text-center" class="well">{{project.name}}</h1>
-                    <br>
-                    
-                </div>
-    
-        <div class="row">
+
+    <h4 style="background-color: rgb(192, 183, 183);width:15%;border-radius: 50px;padding: 30px;">{{design}}<br>DESIGN</h4>
+    <h4 style="background-color: rgb(187, 179, 179);width:15%;border-radius: 50px;padding: 30px;">{{usability}}<br>USABILITY</h4>
+    <h4 style="background-color: rgb(180, 174, 174);width:15%;border-radius: 50px;padding: 30px;">{{content}}<br>CONTENT</h4>
+
+    <div class="row">
           
-            <h3 class="text-center">By <strong>{{project.user}}</strong></h3>
-        </div>
-        
-        <div class="row" style="color:rgb(99, 110, 110);font-family: monospace;">
+     <div class="col-md-5">
+        <div class="row" style="color:rgb(108, 122, 122);font-family: monospace;">
+                    <h1 class="text-center" class="well">{{project.project_name}}</h1>
+                    <h3 class="text-center">By <strong>{{project.user}}</strong></h3>
+                    
+           
+    
+
+          <div style="color:rgb(99, 110, 110);font-family: monospace;">
             <h4 ><strong>Posted on: {{project.posted_on}}</strong></h4>
             
-            <div class="col-md-6"><button><a href="/comments/{{project.id}}">REVIEW</a></button></div>
-            <div class="col-md-6"><button><a href="/votes/{{project.id}}">RATE</a></button></div>
         </div>
-    
+    </div>
+
      </div>
      <div class="col-md-7">
-            <a href="{{project.project_url}}" target="_blank">INSTA G</a>
+            
             <div class="row" style="color:rgb(99, 110, 110);font-family: monospace;">
                 <h4 ><strong>{% autoescape on %}
                     {{project.description| safe}}
@@ -36,30 +39,36 @@
                 </strong></h4>
             </div>
                
-            <div class="row" style="color:rgb(99, 110, 110);font-family: monospace;">
+            <div style="color:rgb(99, 110, 110);font-family: monospace;">
                 <h4 ><strong>{% autoescape on %}
                     {{project.technologies_used| safe}}
                    {% endautoescape %}
                 </strong></h4>
             </div>
         
-            <div class="row">
-                    <div class="col-md-6"> {% for hi in comments %}
-        
-                            <p style="color: black;"><strong>{{hi.user}} : {{hi.comment}}</strong></p>
-                           
-                            {% endfor %}
-                            <br>
-                            <br>
-                        
-                    </div>
-                    <div class="col-md-6">
-                    <p style="color: black;">{{design}}</p>
-                    <p>{{usability}}</p>
-                  
+        </div>  
+    </div>       
+                    
                 
-                    </div>
-                </div>
+        <div class="row">         
+ 
+                <div class="col-md-6"><button class="btn btn-info"><a href="/comments/{{project.id}}">REVIEW</a></button></div>
+     
+   
+
+                <div class="col-md-6"><button class="btn btn-info"><a href="/votes/{{project.id}}">RATE</a></button></div>  
+       
+            </div>    
+           
+           <div class="well">
+
+                <h3>COMMENTS</h3>
+            {% for hi in comments %}
+        
+            <p style="color: black;"><strong>{{hi.user}} : {{hi.comment}}</strong></p>
+               
+            {% endfor %}
+        </div>
             
         </div>
                
