@@ -9,12 +9,13 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializer import ProjectSerializer,ProfileSerializer
 from rest_framework import status
+from .permissions import IsAdminOrReadOnly
+
+# Create your views here.
 
 
 # Create your views here.
-
-
-# Create your views here.
+@login_required(login_url='/accounts/login/')
 def index(request):
     project = Project.objects.all()
 
@@ -26,7 +27,16 @@ def images(request,project_id):
     project = Project.objects.get(id = project_id)
     comments = Comments.objects.filter(project = project.id).all() 
     votes = Votes.objects.filter(project = project.id).all() 
-    return render(request,"Pro.html", {"project":project,"comments":comments,"votes":votes})
+
+    design=0
+    usability=0
+    content=0
+    num = len(votes)
+
+    for n in votes:
+        design+=round(n.design/num)
+        usability+=round(n.usability/num)
+    return render(request,"Pro.html", {"project":project,"comments":comments,"votes":votes,"usability":usability,"design":design})
 
 @login_required(login_url='/accounts/login/')
 def myProfile(request,id):
@@ -116,9 +126,34 @@ def search_results(request):
         return render(request, 'search.html',{"message":message})        
 
 class ProfileList(APIView):
+    permission_classes = (IsAdminOrReadOnly,)
     def get(self, request, format=None):
+        serializers = ProfileSerializer(data=request.data)
+        all_merch = Profile.objects.all()
+        serializers = ProfileSerializer(all_merch, many=True)
+        return Response(serializers.data)
+
+    def post(self, request, format=None):
         serializers = ProfileSerializer(data=request.data)
         if serializers.is_valid():
             serializers.save()
             return Response(serializers.data, status=status.HTTP_201_CREATED)
         return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+   
+
+class ProjectList(APIView):
+    permission_classes = (IsAdminOrReadOnly,)
+    def get(self, request, format=None):
+        serializers = ProjectSerializer(data=request.data)
+        all_merch = Project.objects.all()
+        serializers = ProjectSerializer(all_merch, many=True)
+        return Response(serializers.data)
+
+    def post(self, request, format=None):
+        serializers = ProjectSerializer(data=request.data)
+        if serializers.is_valid():
+            serializers.save()
+            return Response(serializers.data, status=status.HTTP_201_CREATED)
+        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    

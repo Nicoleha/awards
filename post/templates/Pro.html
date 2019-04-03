@@ -5,20 +5,25 @@
  <body>
 
  <div class="container">
-     <div class="row">
+   
+    <img src="{{project.image.url}}"  class="img-responsive" alt="">
      <div class="col-md-5">
             <div class="row" style="color:rgb(108, 122, 122);font-family: monospace;">
                     <h1 class="text-center" class="well">{{project.name}}</h1>
                     <br>
-                    <h3 class="text-center">Added <strong>{{project.user}}</strong></h3>
+                    
                 </div>
     
         <div class="row">
-            <img src="{{project.image.url}}"  class="img-responsive" alt="">
+          
+            <h3 class="text-center">By <strong>{{project.user}}</strong></h3>
         </div>
         
         <div class="row" style="color:rgb(99, 110, 110);font-family: monospace;">
             <h4 ><strong>Posted on: {{project.posted_on}}</strong></h4>
+            
+            <div class="col-md-6"><button><a href="/comments/{{project.id}}">REVIEW</a></button></div>
+            <div class="col-md-6"><button><a href="/votes/{{project.id}}">RATE</a></button></div>
         </div>
     
      </div>
@@ -41,7 +46,7 @@
             <div class="row">
                     <div class="col-md-6"> {% for hi in comments %}
         
-                            <p style="color: black;">><strong>{{hi.user}} : {{hi.comment}}</strong></p>
+                            <p style="color: black;"><strong>{{hi.user}} : {{hi.comment}}</strong></p>
                            
                             {% endfor %}
                             <br>
@@ -49,14 +54,9 @@
                         
                     </div>
                     <div class="col-md-6">
-                    
-                        {% for hi in votes %}
-        
-                        <p style="background-color: black;">{{hi.content}}</p>
-                        <p style="background-color: black;">{{hi.usability}}</p>
-                        <p style="background-color: black;">{{hi.design}}</p>
-        
-                        {% endfor %}
+                    <p style="color: black;">{{design}}</p>
+                    <p>{{usability}}</p>
+                  
                 
                     </div>
                 </div>
@@ -64,7 +64,7 @@
         </div>
                
         {% endblock %}
-     </div>
-    </div>       
+   
+</div>       
     
 </body>

@@ -5,11 +5,11 @@ from django.core.validators import MinValueValidator,MaxValueValidator
 
 # Create your models here.
 class Profile(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     bio = HTMLField()
-    profile_pic = models.ImageField(upload_to='images/')
+    profile_pic = models.ImageField(upload_to='images/',null = True)
     pub_date = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
@@ -32,9 +32,9 @@ class Profile(models.Model):
         return profiles
 
 class Project(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    user = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
     project_name = models.CharField(max_length=30)
-    image = models.ImageField(upload_to='images/')
+    image = models.ImageField(upload_to='images/',null = True)
     description = HTMLField()
     project_url = models.CharField(max_length=100)
     technologies_used = HTMLField()
@@ -75,6 +75,6 @@ class Votes(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     posted_on = models.DateTimeField(auto_now_add=True,)
     project =  models.ForeignKey(Project,on_delete=models.CASCADE)
-    design = models.IntegerField(validators=[MinValueValidator(1),MaxValueValidator(10)])
-    usability = models.IntegerField(validators=[MinValueValidator(1),MaxValueValidator(10)])
-    content = models.IntegerField(validators=[MinValueValidator(1),MaxValueValidator(10)])
+    design = models.IntegerField(choices=list(zip(range(1, 11), range(1, 11))))
+    usability = models.IntegerField(choices=list(zip(range(1, 11), range(1, 11))))
+    content = models.IntegerField(choices=list(zip(range(1, 11), range(1, 11))))
